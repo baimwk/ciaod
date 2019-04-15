@@ -47,29 +47,16 @@ class MyHashTable:
                     stop = True
         return data
 
-    def __getitem__(self, key):
-        return self.get(key)
-
-    def __setitem__(self, key, data):
-        self.put(key, data)
+    def printtable(self):
+        for i in range(0, self.size, 1):
+            print(self.slots[i], " ", self.data[i])
 
 
 H = MyHashTable()
-H[54] = "cat"
-H[26] = "dog"
-H[93] = "lion"
-H[17] = "tiger"
-H[77] = "bird"
-H[31] = "cow"
-H[44] = "goat"
-H[55] = "pig"
-H[20] = "chicken"
+H.put(56, 'cat')
+H.put(57, 'dog')
+H.put(58, 'h')
+H.put(65, 'ggg')
 print(H.slots)
 print(H.data)
-
-print(H[20])
-
-print(H[17])
-H[20] = 'duck'
-print(H[20])
-print(H[99])
+H.printtable()
