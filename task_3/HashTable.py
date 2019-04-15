@@ -54,7 +54,7 @@ class MyHashTable:
         self.put(key, data)
 
 
-H = HashTable()
+H = MyHashTable()
 H[54] = "cat"
 H[26] = "dog"
 H[93] = "lion"
