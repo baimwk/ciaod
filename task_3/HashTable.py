@@ -24,8 +24,11 @@ class MyHashTable:
                 else:
                     self.data[nextslot] = data  # replace
 
-    def hashfunction(self, key, size):  # простой метод остатков
-        return key % size
+    def hashfunction(self, slots, size):  # простой метод остатков для строк
+        sum = 0
+        for pos in range(len(slots)):
+            sum = sum + ord(slots[pos])  # ord(chr) - Возвращает числовое представление для указанного символа
+        return sum % size
 
     def rehash(self, oldhash, size):  # линейное пробивание на 1
         return (oldhash + 1) % size
@@ -47,16 +50,24 @@ class MyHashTable:
                     stop = True
         return data
 
+    def remove(self, data): ####
+        startslot = self.hashfunction(data, len(self.slots))
+        self.slots[startslot] = None ####
+        self.data[startslot] = None
+
     def printtable(self):
         for i in range(0, self.size, 1):
             print(self.slots[i], " ", self.data[i])
 
 
 H = MyHashTable()
-H.put(56, 'cat')
-H.put(57, 'dog')
-H.put(58, 'h')
-H.put(65, 'ggg')
+H.put('a', 'cat')
+
+H.put('b', 'cat')
+H.put('c', 'ooo')
+H.put('l', 'eee')
+H.printtable()
+H.remove('c')
+
 print(H.slots)
 print(H.data)
-H.printtable()
