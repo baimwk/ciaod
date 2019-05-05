@@ -23,10 +23,22 @@ class Task1List:
         self.length = 0
 
     def add(self, item):
-        self.length +=1
+        self.length += 1
         temp = Node(item)
         temp.setNext(self.head)
         self.head = temp
+
+    def addend(self, item):
+        current = self.head
+        count = self.length
+        temp = Node(item)
+        while count > 1:
+           # print(current.getData())
+            current = current.getNext()
+            count -= 1
+        current.setNext(temp)
+    #    print("current get data " + str(current.getData()))
+    #   print("current get next " + str(current.getNext()))
 
     def search(self, item):
         current = self.head
@@ -34,18 +46,22 @@ class Task1List:
         while current != None and not found:
             if current.getData() == item:
                 found = True
-                #print(current.getNext())
+                # print(current.getNext())
             else:
                 current = current.getNext()
 
         return found
 
+    def printlist(self):
+        current = self.head
+        while current != None:
+            print(current.getData())
+            current = current.getNext()
 
 mylist = Task1List()
-
+mylist.add(1)
 mylist.add(2)
-mylist.add('jkk')
-mylist.add(34)
-print(mylist.search(34))
-print(mylist.search(35))
-print(mylist.search('jkk'))
+mylist.add(3)
+mylist.addend(4)
+print('test')
+mylist.printlist()
