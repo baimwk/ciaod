@@ -22,46 +22,71 @@ class Task1List:
         self.head = None
         self.length = 0
 
-    def add(self, item):
-        self.length += 1
-        temp = Node(item)
-        temp.setNext(self.head)
-        self.head = temp
-
-    def addend(self, item):
+    def addBefore(self, before, value):
+        temp = Node(value)
         current = self.head
-        count = self.length
-        temp = Node(item)
-        while count > 1:
-           # print(current.getData())
-            current = current.getNext()
-            count -= 1
-        current.setNext(temp)
-    #    print("current get data " + str(current.getData()))
-    #   print("current get next " + str(current.getNext()))
-
-    def search(self, item):
-        current = self.head
+        addend = self.head
         found = False
         while current != None and not found:
-            if current.getData() == item:
+            if current.getData() == before:
                 found = True
-                # print(current.getNext())
             else:
                 current = current.getNext()
-
-        return found
+        if self.length == 0:
+            temp.setNext(self.head)
+            self.head = temp
+        else:
+            if found:
+                temp.setNext(self.head)
+                self.head = temp
+            if not found:
+                count = self.length
+                while count > 1:
+                    addend = addend.getNext()
+                    count -= 1
+                addend.setNext(temp)
+        self.length += 1
 
     def printlist(self):
-        current = self.head
-        while current != None:
-            print(current.getData())
-            current = current.getNext()
+        if self.head != None:
+            current = self.head
+            while current != None:
+                print(current.getData())
+                current = current.getNext()
+        else:
+            print("Массив пуст")
+
+    def remove(self, num):
+        if self.length > 0 and num < self.length:
+            current = self.head
+            previous = None
+            count = num
+            while count > 0:
+                previous = current
+                current = current.getNext()
+                count -= 1
+            self.length -= 1
+            if previous == None:
+               self.head = current.getNext()
+            else:
+               previous.setNext(current.getNext())
+        else:
+            if self.length == 0:
+                print('Из массива нечего удалить, он пуст')
+            else:
+                print("В массиве всего " + str(self.length) + " элемента(ов)")
+
 
 mylist = Task1List()
-mylist.add(1)
-mylist.add(2)
-mylist.add(3)
-mylist.addend(4)
-print('test')
+mylist.addBefore(1, 2)
+mylist.addBefore(2, 1)
+mylist.addBefore(4, 3)
+mylist.addBefore(4, 4)
 mylist.printlist()
+mylist.remove(3)
+mylist.remove(25)
+mylist.printlist()
+
+myemptylist = Task1List()
+myemptylist.remove(1)
+myemptylist.printlist()
