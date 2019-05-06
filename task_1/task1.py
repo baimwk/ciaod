@@ -46,13 +46,16 @@ class Task1List:
                     count -= 1
                 addend.setNext(temp)
         self.length += 1
+        self.printlist()
 
     def printlist(self):
         if self.head != None:
             current = self.head
+            print("[", end = ' ')
             while current != None:
-                print(current.getData())
+                print(current.getData(), end =' ')
                 current = current.getNext()
+            print("]")
         else:
             print("Массив пуст")
 
@@ -75,18 +78,18 @@ class Task1List:
                 print('Из массива нечего удалить, он пуст')
             else:
                 print("В массиве всего " + str(self.length) + " элемента(ов)")
+        self.printlist()
 
 
+print('mylist:')
 mylist = Task1List()
 mylist.addBefore(1, 2)
 mylist.addBefore(2, 1)
 mylist.addBefore(4, 3)
 mylist.addBefore(4, 4)
-mylist.printlist()
 mylist.remove(3)
 mylist.remove(25)
-mylist.printlist()
 
+print('empty list:')
 myemptylist = Task1List()
 myemptylist.remove(1)
-myemptylist.printlist()
