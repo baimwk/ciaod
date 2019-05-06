@@ -17,29 +17,21 @@ class Node:
 
 
 class Task1List:
-
     def __init__(self):
         self.head = None
         self.length = 0
 
     def addBefore(self, before, value):
         temp = Node(value)
-        current = self.head
         addend = self.head
-        found = False
-        while current != None and not found:
-            if current.getData() == before:
-                found = True
-            else:
-                current = current.getNext()
         if self.length == 0:
             temp.setNext(self.head)
             self.head = temp
         else:
-            if found:
+            if self.search(before):
                 temp.setNext(self.head)
                 self.head = temp
-            if not found:
+            else:
                 count = self.length
                 while count > 1:
                     addend = addend.getNext()
@@ -49,11 +41,11 @@ class Task1List:
         self.printlist()
 
     def printlist(self):
-        if self.head != None:
+        if self.head is not None:
             current = self.head
-            print("[", end = ' ')
-            while current != None:
-                print(current.getData(), end =' ')
+            print("[", end=' ')
+            while current is not None:
+                print(current.getData(), end=' ')
                 current = current.getNext()
             print("]")
         else:
@@ -69,16 +61,27 @@ class Task1List:
                 current = current.getNext()
                 count -= 1
             self.length -= 1
-            if previous == None:
-               self.head = current.getNext()
+            if previous is None:
+                self.head = current.getNext()
             else:
-               previous.setNext(current.getNext())
+                previous.setNext(current.getNext())
         else:
             if self.length == 0:
                 print('Из массива нечего удалить, он пуст')
             else:
                 print("В массиве всего " + str(self.length) + " элемента(ов)")
         self.printlist()
+
+    def search(self, item):
+        current = self.head
+        found = False
+        while current is not None and not found:
+            if current.getData() == item:
+                found = True
+            else:
+                current = current.getNext()
+
+        return found
 
 
 print('mylist:')
@@ -87,9 +90,12 @@ mylist.addBefore(1, 2)
 mylist.addBefore(2, 1)
 mylist.addBefore(4, 3)
 mylist.addBefore(4, 4)
+print(mylist.search(4))
 mylist.remove(3)
+print(mylist.search(4))
 mylist.remove(25)
 
 print('empty list:')
 myemptylist = Task1List()
 myemptylist.remove(1)
+print(mylist.search(376))
