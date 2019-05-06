@@ -80,7 +80,6 @@ class Task1List:
                 found = True
             else:
                 current = current.getNext()
-
         return found
 
 
@@ -88,9 +87,9 @@ print('mylist:')
 mylist = Task1List()
 mylist.addBefore(1, 2)
 mylist.addBefore(2, 1)
-mylist.addBefore(4, 3)
+mylist.addBefore(4, 'string')
 mylist.addBefore(4, 4)
-print(mylist.search(4))
+print(mylist.search('string'))
 mylist.remove(3)
 print(mylist.search(4))
 mylist.remove(25)
