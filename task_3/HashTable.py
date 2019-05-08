@@ -7,7 +7,7 @@ class MyHashTable:
     def put(self, key, data):  # Добавляет новую пару ключ-значение в отображение. Если ключ имеется, то заменяет старый
         hashvalue = self.hashfunction(key, len(self.slots))
 
-        if self.slots[hashvalue] is None:
+        if self.slots[hashvalue] is None or self.slots[hashvalue] == 'tombstone':
             self.slots[hashvalue] = key
             self.data[hashvalue] = data
         else:
@@ -17,8 +17,7 @@ class MyHashTable:
                 nextslot = self.rehash(hashvalue, len(self.slots))
                 while self.slots[nextslot] is not None and self.slots[nextslot] != key:
                     nextslot = self.rehash(nextslot, len(self.slots))
-
-                if self.slots[nextslot] is None:
+                if self.slots[nextslot] is None or self.slots[nextslot] == 'tombstone':
                     self.slots[nextslot] = key
                     self.data[nextslot] = data
                 else:
@@ -35,7 +34,6 @@ class MyHashTable:
 
     def get(self, key):  # Принимает ключ, возвращает соответствующее ему значение из коллекции или None
         startslot = self.hashfunction(key, len(self.slots))
-
         data = None
         stop = False
         found = False
@@ -50,15 +48,16 @@ class MyHashTable:
                     stop = True
         return data
 
-    def remove(self, data): ####
+    def remove(self, data):
         startslot = self.hashfunction(data, len(self.slots))
-        self.slots[startslot] = None ####
+        self.slots[startslot] = 'tombstone'
         self.data[startslot] = None
 
     def printtable(self):
+        print("[", end=' ')
         for i in range(0, self.size, 1):
-            print(self.slots[i], " ", self.data[i])
-
+            print(self.slots[i], self.data[i], end = '; ')
+        print(']')
 
 H = MyHashTable()
 H.put('a', 'cat')
@@ -68,6 +67,7 @@ H.put('c', 'ooo')
 H.put('l', 'eee')
 H.printtable()
 H.remove('c')
+H.put('cccc', 'ooo')
 
 print(H.slots)
 print(H.data)
